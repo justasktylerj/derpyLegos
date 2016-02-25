@@ -2,7 +2,6 @@ package bot.controller;
 
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
-
 import bot.model.EV3Bot;
 
 
@@ -13,19 +12,23 @@ public class BotController
 	private int xPosition, yPosition;
 	private long waitTime;
 	
+	private EV3Bot sillyBot;
+	
 	public BotController()
 	{
 		this.xPosition = 50;
 		this.yPosition = 100;
 		this.waitTime = 4000;
 		this.message = "Something about robots";
+		
+		sillyBot = new EV3Bot();
 	}
 	
 	public void start()
 	{
 		LCD.drawString(message, xPosition, yPosition);
 		Delay.msDelay(waitTime);
-		sillyBot.driveRoom(); 
+//		sillyBot.driveRoom(); 
 	}
 
 	public String getMessage() 

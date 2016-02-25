@@ -21,7 +21,9 @@ public class EV3Bot
 	
 	private MovePilot botPilot;
 	private EV3UltrasonicSensor distanceSensor;
-	private EV3TouchSensor backouch;
+	private EV3TouchSensor backTouch;
+	private float [] ultrasonicSamples;
+	private float [] touchSamples;
 	
 	public EV3Bot()
 	{
@@ -34,11 +36,12 @@ public class EV3Bot
 		backTouch = new EV3UltrasonicSensor(LocalEV3.get().getPort("S2"));
 		
 		setupPilot();
+		
 		displayMessage();
 	
 	}
 	
-	private oid setupPilot()
+	private void setupPilot()
 	{
 		Wheel leftWheel = WheeledChassis.modelWheel(Motor.A, 43.3).offset(-72);
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 43.3).offset(-72);
@@ -47,6 +50,19 @@ public class EV3Bot
 	
 	private void driveRoom()
 	{
+		ultrasonicSamples =new float [distanceSensor.sampleSize()];
+		distanceSensor.fetchSample(ultrasonicSamples, 0);
+		if(ultrasonicSamples[0] < 2.5)
+		{
+			//short
+			botPilot.travel(20.00);
+		}
+		else
+		{
+			//long
+			botPilot.travel(254.00);
+		}
+		
 		displayMessage("driveRoom");
 	}
 	

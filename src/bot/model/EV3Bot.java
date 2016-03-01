@@ -45,21 +45,21 @@ public class EV3Bot
 	{
 		Wheel leftWheel = WheeledChassis.modelWheel(Motor.A, 43.3).offset(-72);
 		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 43.3).offset(-72);
-		WheeledChassis chassis = WheeledChassis(new Wheel[]{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
+		WheeledChassis chassis = new WheeledChassis(new Wheel[]{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 	}
 	
 	private void driveRoom()
 	{
-		ultrasonicSamples =new float [distanceSensor.sampleSize()];
+		ultrasonicSamples = new float [distanceSensor.sampleSize()];
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
 		if(ultrasonicSamples[0] < 2.5)
 		{
-			//short
+			displayMessage("Short Drive");
 			botPilot.travel(20.00);
 		}
 		else
 		{
-			//long
+			displayMessage("Long drive");
 			botPilot.travel(254.00);
 		}
 		
